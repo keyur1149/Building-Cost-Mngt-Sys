@@ -1,0 +1,90 @@
+﻿@model Building_Cost_Mngt_Sys.Models.Users.DashBordViewModel;
+
+
+<div class="container" style="padding: 50px 10px;">
+    <div class="row">
+        <div class="col-md-8">
+            <div>ID :- <span style="font-weight:900;">@ViewBag.Id</span></div>
+            <div>Name :- <span style="font-weight:900;">@ViewBag.Name</span> </div>
+            <div>Email :- <span style="font-weight:900;"> @ViewBag.Email</span></div>
+</div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2" style="    align-self: center;"><a class="btn btn-danger" asp-action="Logout" asp-controller="User">Log Out</a></div>
+
+    </div>
+</div>
+<hr />
+
+<div class="container" style="    margin: 20px 5px;">
+    <div class="row">
+        <div class="col-md-6" style="    display: flex;justify-content: center;">
+            <button id="button1" class="btn btn-outline-primary" onclick="">As Partner</button>
+        </div>
+        <div class="col-md-6" style="    display: flex;justify-content: center;">
+            <button id="button2" class="btn btn-outline-primary" onclick="">As Operator</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="content1" class="container" style="margin: 15px 0px; ">
+    <!-- Content for Button 1 -->
+    @foreach(var project in Model.as_partner)
+    {
+        @if (project.isActive==false)
+        {
+            continue;
+        }
+        <div class="row" style="margin:10px 0px;background-color:antiquewhite;height:50px;">
+            <h5 class="col-md-6" style="    display: flex;
+    justify-content: center;">
+                <span style=" align-self: center;    font-weight: 700;">@project.ProjectName</span>
+            </h5>
+            <div class="col-md-2"></div>
+            <div class="col-md-2" style="align-self:center;"><a asp-action="Project_Dashbord" asp-route-id="@project.Id" asp-route-name="Partner" asp-controller="Project" class="btn btn-primary">Edit</a></div>
+            <div class="col-md-2" style="align-self:center;"><a asp-action="Inactive" asp-route-id="@project.Id" asp-controller="Project" class="btn btn-danger">Stop</a></div>
+        </div>
+
+    }
+</div>
+
+<div id="content2" class="container" style="display: none;margin: 15px 0px;">
+    <!-- Content for Button 2 -->
+      @foreach(var project in Model.as_operator)
+    {
+        @if (!project.isActive)
+        {
+            continue;
+        }
+        <div class="row" style="margin:10px 0px;background-color:antiquewhite;height:50px;">
+            <h5 class="col-md-6" style="    display: flex;
+    justify-content: center;">
+                <span style=" align-self: center;    font-weight: 700;">@project.ProjectName</span>
+            </h5>
+            <div class="col-md-4"></div>
+            <div class="col-md-2" style="align-self:center;"><a asp-action="Project_Dashbord" asp-route-id="@project.Id" asp-route-name="Operator" asp-controller="Project" class="btn btn-primary ">Edit</a></div>
+            
+        </div>
+
+    }
+</div>
+<!--
+<div style=" position: fixed;
+    bottom: 50px; 
+    right: 50px;
+    z-index: 999;">
+    <a class="btn btn-primary btn-lg"><i class="fa fa-plus" aria-hidden="true"></i> Add Expenses</a>
+</div>-->
+@section Scripts {
+    <script>
+        document.getElementById('button1').addEventListener('click', function () {
+            document.getElementById('content1').style.display = 'block';
+            document.getElementById('content2').style.display = 'none';
+        });
+
+        document.getElementById('button2').addEventListener('click', function () {
+            document.getElementById('content1').style.display = 'none';
+            document.getElementById('content2').style.display = 'block';
+        });
+    </script>
+}

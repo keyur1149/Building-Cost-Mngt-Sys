@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor Accessor
+@model Building_Cost_Mngt_Sys.Models.Account.Account;
+<form asp-action="Addexp" asp-controller="Account">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="form-group col-md-4">
+            <label for="inputEmail4">Description</label>
+            <input type="textarea" asp-for="Description" class="form-control" id="inputEmail4" placeholder="add Description" required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="form-group col-md-4">
+            <label for="inputPassword4">Amount</label>
+            <input type="number" asp-for="Amount" class="form-control" id="inputPassword4" placeholder="Amount" required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4"></div>
+    <div class="form-group col-md-4">
+        <label for="inputAddress">Date</label>
+        <input type="date" asp-for="Date" class="form-control" id="inputAddress" placeholder="Date" required>
+    </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4"></div>
+    <div class="form-group col-md-4">
+        <label for="inputAddress">Time</label>
+        <input type="time" asp-for="Time" class="form-control" id="inputAddress" placeholder="Time" required>
+    </div>
+    </div>
+
+    
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <label for="inputState">Type</label>
+            <select id="inputState" asp-for="Type" class="form-control">
+                <option selected value="Debit">Debit</option>
+                @if(ViewBag.Name=="Partner"){
+                    <option  value="Credit">Credit</option>
+                }
+            </select>
+        </div>
+       
+    </div>
+
+    <div class="row">
+        <div class="col-md-4"></div>
+    <button type="submit" class="btn btn-primary col-md-4">Add Expension</button>
+     
+    </div>
+</form>
+<div class="row">
+    <div class="col-md-4"></div>
+    <a asp-action="Project_Dashbord" asp-route-name="@ViewBag.Name" asp-route-id="@Accessor.HttpContext.Session.GetString("project_id")" asp-controller="Project" class="btn btn-danger col-md-4">Back</a>
+
+</div>

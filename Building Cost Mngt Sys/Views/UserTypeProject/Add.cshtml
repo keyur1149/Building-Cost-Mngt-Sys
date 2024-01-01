@@ -1,0 +1,44 @@
+﻿@{
+    @model Building_Cost_Mngt_Sys.Models.Users.UserProjectTypeViewModel;
+}
+<form asp-action="Add" asp-controller="UserTypeProject" method="post">
+<select class="form-select" aria-label="Default select example" asp-for="send_project" required>
+        <option value="0">Select Project</option>
+
+        @foreach (var project in Model.Projects)
+    {
+        <option value="@project.Id">@project.ProjectName</option>
+    }
+</select>
+
+
+<select class="form-select" aria-label="Default select example" asp-for="send_user" required>
+    <option value="0">Select User</option>
+    @foreach (var user in Model.Users)
+    {
+        if (user.User_Name == "Admin")
+        {
+            continue;
+        }
+        <option value="@user.Id">@user.User_Name</option>
+    }
+</select>
+
+
+<select class="form-select" aria-label="Default select example" asp-for="send_user_type" required >
+        <option value="0">Select User Role</option>
+
+        @foreach (var user_type in Model.User_Types)
+    {
+        if (@user_type.User_Type_Name == "Admin")
+        {
+            continue;
+        }
+        <option value="@user_type.Id">@user_type.User_Type_Name</option>
+    }
+</select>
+    <div class="form-group form-check">
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
